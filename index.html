@@ -8,6 +8,10 @@
 
 </head>
 <body>
+<audio id="background-music" loop>
+	<source src="salvador.mp3" type="audio/mpeg">
+	Tu navegador no soporta el elemento de audio.
+	</audio>
 <!-- partial:index.partial.html -->
 <style>
 	@import url(https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap);
@@ -201,13 +205,13 @@ body  {
 	position: absolute;
 	bottom: 5px;
 	left: 50%;
-	width: 90%;
+	width: 95%;
 	height: var(--letter-height);
 	font-size: var(--letter-font-size);
 	transform: translateX(-50%);
 	background: var(--letter-clr-bg);
 	z-index: 2;
-	padding: 2em 3em;
+	padding: 2em 1em;
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
@@ -227,7 +231,6 @@ body  {
 .letter p {
 	margin: 0;
 	font-weight: bold;
-	width: 32ch;
 	color: var(--letter-clr-text);
 }
 
@@ -247,6 +250,17 @@ body  {
     margin-top: 10px; 
     font-size: 1.8rem;  
     font-weight: bold; 
+}
+
+.music-status {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    display: none;
 }
 
 </style>
@@ -275,8 +289,8 @@ body  {
 			<div class="letter">
 			
                 <p>
+					<br>
                     Hola, mi amor.
-                    <br>
                     Sé que estás muy ocupado y con muchas cosas para hacer. Solo quiero hacerte saber, una vez más, que
                     estoy muy feliz de conocerte. Que en este día del amor puedas saber que tu amor hacia mí es muy bonito
                     y que amarte, quererte, me hace feliz. 
@@ -286,10 +300,9 @@ body  {
                     para recordarterlo.
                     <br>
                     La canción que suena es "Salvador" de Mon Laferte. Escúchala con calma después. 
-                    Siempre que quieras puedes regresar a leer esta carta.
                     Te mando mi fuerza, mi amor, mis buenos deseos.
                     <br>
-                    <span>Te amo, Matheus Leite (Mi amor).</span>
+                    <span>Te amo, Matheuuuus. Te amo mucho.</span>
 
                 </p>			
 				
@@ -301,27 +314,55 @@ body  {
 	</div>
 
 </div>
+<div class="music-status">
+    ♫ Reproduciendo "Salvador" - Mon Laferte
+</div>
 <!-- partial -->
  
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4704501585981299"
      crossorigin="anonymous"></script>
 
 <script>
-	document.addEventListener('contextmenu', function (e) {
-    e.preventDefault();
-  });
-  
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'F12') {
-      e.preventDefault();
-    }
-    if (e.ctrlKey && e.shiftKey && e.key === 'I') {
-      e.preventDefault();
-    }
-    if (e.ctrlKey && e.key === 'u') {
-      e.preventDefault();
-    }
-  });
+	document.addEventListener('DOMContentLoaded', function() {
+		const envelope = document.querySelector('.envelope');
+		const music = document.getElementById('background-music');
+		const musicStatus = document.querySelector('.music-status');
+		let musicStarted = false;
+	
+		envelope.addEventListener('click', function() {
+			if (!musicStarted) {
+				music.play()
+					.then(() => {
+						musicStarted = true;
+						musicStatus.style.display = 'block';
+						setTimeout(() => {
+							musicStatus.style.opacity = '0';
+							musicStatus.style.transition = 'opacity 1s';
+						}, 3000);
+					})
+					.catch(function(error) {
+						console.log("Error al reproducir:", error);
+					});
+			}
+		});
+	  });
+	
+	  // Scripts de protección existentes
+	  document.addEventListener('contextmenu', function (e) {
+		e.preventDefault();
+	  });
+	  
+	  document.addEventListener('keydown', function (e) {
+		if (e.key === 'F12') {
+		  e.preventDefault();
+		}
+		if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+		  e.preventDefault();
+		}
+		if (e.ctrlKey && e.key === 'u') {
+		  e.preventDefault();
+		}
+	  });
 </script>
 
   
